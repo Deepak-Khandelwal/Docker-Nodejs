@@ -32,7 +32,12 @@ pipeline {
         stage('Deploy to AWS') {
             steps{
                 sh "sed -i 's/node-web-app:latest/node-web-app:${env.BUILD_ID}/g' deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                script{
+	            try{
+                        sh "sudo kubectl apply -f ."
+                   }catch(error){
+			sh "sudo kubectl create -f . "
+		   }
             }
         }
     }    
