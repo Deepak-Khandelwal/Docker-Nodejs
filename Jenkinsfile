@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("DOCKER-HUB-USERNAME/node-web-app:${env.BUILD_ID}")
+                    myapp = docker.build("deepakkhandelwal/node-web-app:${env.BUILD_ID}")
                 }
             }
         }
