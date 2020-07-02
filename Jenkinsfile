@@ -34,9 +34,9 @@ pipeline {
                 sh "sed -i 's/node-web-app:latest/node-web-app:${env.BUILD_ID}/g' deployment.yaml"
                 script{
 	            try{
-                        sh "sudo kubectl apply -f ."
+                        sh "sudo kubectl apply -f deployment.yaml"
                    }catch(error){
-			sh "sudo kubectl create -f . "
+			sh "sudo kubectl create -f deployment.yaml "
 		   }
             }
         }
