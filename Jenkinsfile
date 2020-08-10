@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage("Checkout code") {
             steps {
-                checkout scm
+                git branch: 'master', url: 'https://github.com/Deepak-Khandelwal/Docker-Nodejs.git'
             }
         }
         stage("Build image") {
@@ -29,7 +29,7 @@ pipeline {
                 }
             }
         }        
-        stage('Deploy to AWS') {
+        stage('Kubernetes deployment') {
             steps{
                 sh "sed -i 's/node-web-app:latest/node-web-app:${env.BUILD_ID}/g' deployment.yaml"
                 script{
